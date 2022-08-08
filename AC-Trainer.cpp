@@ -8,10 +8,12 @@ int main()
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
 	HANDLE hProc = 0;
-	uintptr_t modBaseAddr = 0, playerPtr = 0, healthAddr = 0;
-	bool bHealth = false, bAmmo = false, bRecoil = false;
+	uintptr_t modBaseAddr = 0, playerPtr = 0, healthAddr = 0, flyAddr = 0;
+	bool bHealth = false, bAmmo = false, bRecoil = false, bFlyHack = false;
 
-	const int new_val = 9999;
+	const int new_val = 9999; // health value to insert.
+	const int fly_on = 5;  // toggle_val = 5 to enable hack, value = 0 to disable fly hack
+	const int fly_off = 0;
 
 	DWORD procId = GetProcId(gameName);
 
@@ -20,8 +22,8 @@ int main()
 		hProc = OpenProcess(PROCESS_ALL_ACCESS, NULL, procId);
 		modBaseAddr = GetModuleBaseAddress(procId, gameName);
 		playerPtr = modBaseAddr + 0x109B74;
-		healthAddr = FindMAAddy(hProc, playerPtr, { 0xF8 }); // *(playerPtr + 0x48) = health_value 
-		//std::cout << "Health addr = " << std::hex<< "0x" << healthAddr << std::endl;
+		healthAddr = FindMAAddy(hProc, playerPtr, { 0xF8 }); // (playerPtr + 0x48) = health_value_addr 
+		flyAddr = FindMAAddy(hProc, playerPtr, { 0x338 }); // (playerPtr + 0x338) = fly_hack_toggle_addr
 
 		SetConsoleTextAttribute(hConsole, 2);
 		std::cout << "ac_client.exe process FOUND!\nStarting menu ...\n--------------------------\n";
@@ -36,8 +38,11 @@ int main()
 
 	DWORD dwExit = 0;
 
-	std::string health_str = "[Z] HEALTH HACK \n", ammo_str = "[C] INFINITE AMMO \n", recoil_str = "[X] NO RECOIL \n--------------------------\n";
-	std::cout << health_str << ammo_str << recoil_str;
+	std::string health_str = "[Z] HEALTH HACK \n", 
+		ammo_str = "[C] INFINITE AMMO \n", 
+		recoil_str = "[X] NO RECOIL \n",
+		fly_str = "[NUMPAD 1] FLY HACK \n--------------------------\n";
+	std::cout << health_str << ammo_str << recoil_str << fly_str;
 
 
 	while (GetExitCodeProcess(hProc, &dwExit) && dwExit == STILL_ACTIVE)
@@ -125,6 +130,28 @@ int main()
 				SetConsoleTextAttribute(hConsole, 4);
 
 				std::cout << "No Recoil Deactivated...\n";
+
+			}
+		}
+
+		if (GetAsyncKeyState(VK_NUMPAD1) & 1) // Key NUMPAD 1 - FlyHack
+		{
+			bFlyHack = !bFlyHack;
+
+			if (bFlyHack)
+			{
+				mem::PatchEx((BYTE*)flyAddr, (BYTE*)&fly_on, sizeof(fly_on), hProc); // FF 06 - inc [esi]
+				SetConsoleTextAttribute(hConsole, 2);
+
+				std::cout << "Fly Hack Activated...\n";
+
+			}
+			else
+			{
+				mem::PatchEx((BYTE*)flyAddr, (BYTE*)&fly_off, sizeof(fly_on), hProc);
+				SetConsoleTextAttribute(hConsole, 4);
+
+				std::cout << "Fly Hack Deactivated...\n";
 
 			}
 		}
