@@ -10,7 +10,7 @@ Unlimited Ammo - Press C
 
 No Recoil - Press X
 
-To Close - Press NUMPAD 0
+To Close - Press NUMPAD LOCK
 
 # Screenshot
 
