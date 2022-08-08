@@ -1,6 +1,6 @@
-# Assault Cube v1.2.0.2 trainer
+# Assault Cube v1.2.0.2 (x86) trainer
 
-##Run the Trainer as Administrator!
+## Run the Trainer as Administrator if not working.
 
 ## features
 
