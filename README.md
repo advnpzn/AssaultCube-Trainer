@@ -14,4 +14,4 @@ To Close - Press NUMPAD 0
 
 # Screenshot
 
-![gif]()
+![gif](https://github.com/adenosinetp10/AssaultCube-Trainer/blob/master/Animation.gif)
