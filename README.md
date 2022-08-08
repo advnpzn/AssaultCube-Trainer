@@ -1,6 +1,6 @@
 # Assault Cube v1.2.0.2 trainer
 
-###Run the Trainer as Administrator!
+##Run the Trainer as Administrator!
 
 ## features
 
