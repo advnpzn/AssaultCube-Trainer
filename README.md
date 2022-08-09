@@ -1,4 +1,4 @@
-# Assault Cube v1.2.0.2 (x86) trainer
+# External Assault Cube v1.2.0.2 (x86) trainer
 
 - Run the Trainer as Administrator if not working.
 - Download the pre built executable from Releases.
