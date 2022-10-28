@@ -119,10 +119,10 @@ int main()
 				/*		Recoil Function
 					---------------------------------
 					50			- push eax
-					8D 4C 24 1C - lea ecx, [esp + 1C]
+					8D 4C 24 1C 		- lea ecx, [esp + 1C]
 					51			- push ecx
-					8B CE		- mov ecx, esi
-					FF D2		- call edx
+					8B CE			- mov ecx, esi
+					FF D2			- call edx
 					---------------------------------
 
 				*/
