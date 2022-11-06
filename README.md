@@ -1,5 +1,7 @@
 # External Assault Cube v1.2.0.2 (x86) trainer
 
+It's a tradition to and for enthusiastic people who are looking into game hacking to try to make a hack for AssualtCube and even the pros and experienced in such fields suggest starting from here. So here I am.
+
 - Run the Trainer as Administrator if not working.
 - Download the pre built executable from Releases.
 
